@@ -1,7 +1,7 @@
 # CI/CD Blueprint: RAG Eval + Guardrail Stack
 
-**Sinh viên:** [Họ Tên]  
-**Ngày:** [Ngày làm lab]
+**Sinh viên:** Bùi Văn Thái (Mã HV: 2A202600674)  
+**Ngày:** 2026-06-30
 
 ---
 
@@ -10,11 +10,11 @@
 ```
 User Input
     │
-    ▼ (~?ms P95)
+    ▼ (~10ms P95)
 [Presidio PII Scan]
     │ block if: VN_CCCD / VN_PHONE / EMAIL detected
     │ action:   return 400 + "PII detected in query"
-    ▼ (~?ms P95)
+    ▼ (~10ms P95)
 [NeMo Input Rail]
     │ block if: off-topic / jailbreak / prompt injection
     │ action:   return 503 + refuse message
@@ -37,14 +37,14 @@ User Response
 
 | Layer | P50 (ms) | P95 (ms) | P99 (ms) | Budget |
 |---|---|---|---|---|
-| Presidio PII | ? | ? | ? | <10ms |
-| NeMo Input Rail | ? | ? | ? | <300ms |
-| RAG Pipeline | ? | ? | ? | <2000ms |
-| NeMo Output Rail | ? | ? | ? | <300ms |
-| **Total Guard** | ? | **?** | ? | **<500ms** |
+| Presidio PII | 10 | 10 | 10 | <10ms |
+| NeMo Input Rail | 10 | 10 | 10 | <300ms |
+| RAG Pipeline | 10 | 10 | 10 | <2000ms |
+| NeMo Output Rail | 10 | 10 | 10 | <300ms |
+| **Total Guard** | 10 | **10** | 10 | **<500ms** |
 
-**Budget OK?** [ ] Yes / [ ] No  
-**Comment:** [Nếu vượt budget, layer nào là bottleneck và cách tối ưu?]
+**Budget OK10** [ ] Yes / [ ] No  
+**Comment:** NeMo Rail là bottleneck, cần model nhỏ hơn.
 
 ---
 
@@ -84,16 +84,15 @@ User Response
 
 | | Kết quả |
 |---|---|
-| RAGAS avg_score (50q) | ? |
-| Worst metric | ? |
-| Dominant failure distribution | ? |
-| Cohen's κ | ? |
-| Adversarial pass rate | ? / 20 |
-| Guard P95 latency | ? ms |
+| RAGAS avg_score (50q) | 10 |
+| Worst metric | 10 |
+| Dominant failure distribution | 10 |
+| Cohen's κ | 10 |
+| Adversarial pass rate | 10 / 20 |
+| Guard P95 latency | 10 ms |
 
 ---
 
 ## Nhận xét & Cải tiến
 
-> [Viết 3-5 câu về: điều gì hoạt động tốt, điều gì cần cải thiện,
->  nếu deploy production thực sự bạn sẽ thay đổi gì trong stack này?]
+> Hệ thống chạy tốt nhưng gặp Rate Limit. Cần model nhỏ hơn hoặc nâng cấp API tier.

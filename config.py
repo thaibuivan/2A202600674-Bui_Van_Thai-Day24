@@ -9,6 +9,10 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 HF_TOKEN = os.getenv("HF_TOKEN", "")  # Optional: for HuggingFace models
 
+# Bắt OpenAI library tự động gọi vào Groq
+os.environ["OPENAI_API_KEY"] = os.getenv("GROQ_API_KEY", "")
+os.environ["OPENAI_BASE_URL"] = "https://api.groq.com/openai/v1"
+
 # --- Qdrant (same as Day 18) ---
 QDRANT_HOST = "localhost"
 QDRANT_PORT = 6333
@@ -38,7 +42,7 @@ ADVERSARIAL_SET_PATH = os.path.join(os.path.dirname(__file__), "adversarial_set_
 GUARDRAILS_CONFIG_DIR = os.path.join(os.path.dirname(__file__), "guardrails")
 
 # --- LLM Judge ---
-JUDGE_MODEL = "gpt-4o-mini"
+JUDGE_MODEL = "llama-3.3-70b-versatile"
 
 # --- Guardrail latency budget ---
 LATENCY_BUDGET_P95_MS = 500  # target: full guard stack P95 < 500ms
